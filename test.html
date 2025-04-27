@@ -1,6 +1,7 @@
+<!DOCTYPE html>
 <html>
     <head>
-        <title>hello</title>
+        <title>邀请码登录</title>
     </head>
     <body>
         <h1>邀请码登录</h1>
@@ -11,8 +12,12 @@
         <button onclick="handleLogin()">确认</button>
 
         <script>
-            // 模拟一个有效的邀请码列表
-            const validInviteCodes = ["todosomething"]; // 示例邀请码
+            // 定义邀请码与对应跳转信息的映射关系
+            const inviteMap = {
+                "todosomething": "success.html", // 本地 success.html 页面
+                "helloworld": "test Web.html",         // 本地 test Web.html 页面
+                "ribenmajiang": "https://www.maj-soul.net/#/home" // 外部链接
+            };
 
             function handleLogin() {
                 // 获取输入框内的邀请码
@@ -24,11 +29,14 @@
                     return;
                 }
 
-                // 验证邀请码
-                if (validInviteCodes.includes(inviteCode)) {
-                    alert("登录成功！");
-                    // 跳转到另一个页面
-                    window.location.href = "success.html"; // 替换为目标页面的路径
+                // 检查邀请码是否存在于映射中
+                if (inviteMap[inviteCode]) {
+                    // 判断是否跳转到外部链接
+                    if (inviteCode === "ribenmajiang") {
+                        window.open(inviteMap[inviteCode], "_blank"); // 新标签打开外部链接
+                    } else {
+                        window.location.href = inviteMap[inviteCode]; // 本地页面跳转
+                    }
                 } else {
                     alert("无效的邀请码！");
                 }
